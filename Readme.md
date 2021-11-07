@@ -48,8 +48,7 @@ This repository contains all the code used for the article and further experimen
 ├── experiments_knapsack_thetas.py
 ├── experiments_mutation_crossover.py
 ├── exploration_exploitation.py
-├── hyperparameters_benchmark_function.py
-└── res.json
+└── hyperparameters_benchmark_function.py
 </pre>
 
 Mapping between experiments reported in the article and used scripts.
