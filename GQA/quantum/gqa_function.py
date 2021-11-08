@@ -170,9 +170,9 @@ class GQA_function:
         random.shuffle(chromosomes)
 
         for i in range(0,len(chromosomes),2):
-            total = self.evaluations[chromosomes[i]] + self.evaluations[chromosomes[i+1]]
+            total = abs(-self.evaluations[chromosomes[i]] - self.evaluations[chromosomes[i+1]])
             if(total != 0):
-                p1 =  self.evaluations[chromosomes[i]] / total
+                p1 =  -self.evaluations[chromosomes[i]] / total
             else:
                 p1 = 0.5
             x = random.uniform(0,1)
@@ -183,16 +183,6 @@ class GQA_function:
                 selected.append(chromosomes[i])
                 non_selected.append(chromosomes[i+1])
         
-        best_key = min(self.evaluations, key=self.evaluations.get)
-        if(self.generation == 0):
-            self.best_chromosome = self.measurements[best_key]
-            self.best_fitness = self.evaluations[best_key]
-        else:
-            if(self.best_fitness > self.evaluations[best_key]):
-                self.best_chromosome = self.measurements[best_key]
-                self.best_fitness = self.evaluations[best_key]
-                self.best_generation = self.generation
-
         return selected,non_selected
             
 
