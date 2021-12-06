@@ -16,11 +16,35 @@ from qiskit.visualization import plot_histogram
 from qiskit import IBMQ, Aer
 from qiskit.visualization import plot_histogram
 from qiskit.providers.aer.noise import NoiseModel
-
+from qiskit.providers.ibmq import least_busy
 
 import math
 import random 
 from tqdm import tqdm
+
+# IBMQ ACCESS 
+TOKEN = '5e19a884422efbc1715dfb0f0df18f59e11159ddec73008e31a7fe1081e6b896fc7d973aa7d46ec32f66f4d66dc13a53cbc4580b7b15b6fe5e58e3a20435d98a'
+# ibmq_lima
+#IBMQ.save_account(TOKEN)
+IBMQ.load_account() # Load account from disk
+# IBMQ.providers()    # List all available providers
+hub='ibm-q'
+group='open'
+project='main'
+# 
+
+#IBMQ.enable_account(TOKEN, hub, group, project)
+provider = IBMQ.get_provider(group='open')
+small_devices = provider.backends(filters=lambda x: x.configuration().n_qubits == 5
+                                   and not x.configuration().simulator)
+backend = least_busy(small_devices)
+
+print(f"Accessed backend: {backend}")
+
+
+
+
+
 
 
 
@@ -42,7 +66,7 @@ class Compact_knapsack_qiskit:
         self.best_evaluation = -9999999999999999999
         self.mutation_rate = mutation_rate 
 
-        self.knapsack = Knapsack(istance,penalty='quadratic')
+        self.knapsack = Knapsack(istance,penalty=None)
         self.num = self.knapsack.size
         self.population = Population(1,self.num) 
 
@@ -91,7 +115,7 @@ class Compact_knapsack_qiskit:
 
         #job_sim = execute(qc, self.backend_sim, shots=1)
         
-        job_sim = execute(qc,fake_manhattan,shots = self.num_pop).result()
+        job_sim = execute(qc,backend,shots = self.num_pop).result()
         counts = job_sim.get_counts(qc)
         
         self.extract(counts)
@@ -108,7 +132,7 @@ class Compact_knapsack_qiskit:
         #################################
         #           REPAIR              #
         #################################
-        #self.repair()
+        self.repair()
         
     
         for i in self.measurements:

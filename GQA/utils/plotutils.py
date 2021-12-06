@@ -78,3 +78,49 @@ def plotTwoComparison(eval1,eval2,generations):
     ax.legend()
 
     plt.show()
+
+def plotBestEval(evals):
+    
+    fig, ax = plt.subplots()   
+    x = range(len(evals))
+    y = evals
+
+    SMALL_SIZE = 10
+
+    #ax.plot(x,y,label=f"GQA")
+    ax.plot(x,y)
+    
+    plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+    plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+
+    ax.set_xlabel('Generation',fontsize = 15)
+    ax.set_ylabel('Objective', fontsize = 15)
+
+    ax.legend()
+
+    plt.show()
+
+def plotKnapsackComparison(best_evaluations,best_evaluations_ideal):
+    fig, ax = plt.subplots()   
+    x = range(len(best_evaluations))
+    y = best_evaluations
+
+    SMALL_SIZE = 10
+
+    ax.plot(x,y,label="Qiskit: Fake Manhattan")
+
+    x = range(len(best_evaluations_ideal))
+    y = best_evaluations_ideal
+
+    ax.plot(x,y,label="Ideal")
+
+    
+    plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+    plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+
+    ax.set_xlabel('Generation',fontsize = 15)
+    ax.set_ylabel('Objective', fontsize = 15)
+
+    ax.legend()
+
+    plt.show()

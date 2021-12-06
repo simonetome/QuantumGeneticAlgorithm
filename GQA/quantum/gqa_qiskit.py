@@ -13,6 +13,7 @@ from qiskit.visualization import plot_histogram
 from qiskit import IBMQ, Aer
 from qiskit.visualization import plot_histogram
 from qiskit.providers.aer.noise import NoiseModel
+from qiskit.providers.aer import AerSimulator
 
 from math import pi
 from mpl_toolkits.mplot3d import Axes3D
@@ -32,17 +33,20 @@ from matplotlib import pyplot as plt
 
 
 from qiskit.test.mock import FakeManhattan,FakeMontreal
-fake_manhattan = FakeMontreal()
+fake_manhattan_backend = FakeManhattan()
+sim_manhattan = AerSimulator.from_backend(fake_manhattan_backend, method= 'matrix_product_state')
 
 
 class GQA_qiskit:
 
-    def __init__(self,generations,num_pop,knapsack_definition,delta,penalty,seed,verbose,crossover_probability,mutation_rate):
+    def __init__(self,generations,num_pop,knapsack_definition,delta,penalty,seed,verbose,crossover_probability,mutation_rate,shots):
         random.seed(seed)
         
         self.generations = generations
         self.generation = 0
         
+        self.shots = shots 
+
         self.num = 0
         self.num_pop = num_pop
         self.verbose = verbose
@@ -130,7 +134,24 @@ class GQA_qiskit:
         qc.draw()
 
         #job_sim = execute(qc, self.backend_sim, shots=1)
-        job_sim = execute(qc,fake_manhattan,shots = 1).result()
+
+        # QISKIT --------------- DOC 
+        # Transpile the circuit for the noisy basis gates
+        # tcirc = transpile(circ, sim_vigo)
+
+        # # Execute noisy simulation and get counts
+        # result_noise = sim_vigo.run(tcirc).result()
+        # counts_noise = result_noise.get_counts(0)
+        # plot_histogram(counts_noise,
+        #        title="Counts for 3-qubit GHZ state with device noise model")
+        # fake_manhattan_backend = FakeManhattan()
+        # sim_manhattan = AerSimulator.from_backend(fake_manhattan_backend, method= 'matrix_product_state')
+
+        tcirc = transpile(qc,sim_manhattan)
+        job_sim = sim_manhattan.run(tcirc,shots= self.shots).result()
+
+
+        #job_sim = execute(qc,fake_manhattan,shots = 1).result()
         counts = job_sim.get_counts(qc)
         measurement = list(counts.keys())[0][::-1]
 
@@ -188,7 +209,7 @@ class GQA_qiskit:
         # save the max_profit of the chromosome of that generation if no penalty would be applied 
         true_profits = []
         for i in self.measurements:
-            true_profits.append(self.knapsack.calculate_revenue_no_penalty(l=self.measurements[i]))
+            true_profits.append(self.knapsack.calculate_revenue(l=self.measurements[i]))
         
         self.history[self.generation]['true_profit'] = max(true_profits)
 
@@ -214,6 +235,7 @@ class GQA_qiskit:
         if(self.generation == 0):
             self.best_chromosome = self.measurements[best_key][:]
             self.best_fitness = self.evaluations[best_key]
+            self.best_evaluations.append(self.best_fitness)
             
         else:
             if(self.best_fitness < self.evaluations[best_key]):
@@ -221,6 +243,7 @@ class GQA_qiskit:
                 self.best_fitness = self.evaluations[best_key]
                 self.best_generation = self.best_generation
                 self.best_weight = self.knapsack.calculate_weight(self.measurements[best_key][:])
+                self.best_evaluations.append(self.best_fitness)
                 
 
         return selected,non_selected

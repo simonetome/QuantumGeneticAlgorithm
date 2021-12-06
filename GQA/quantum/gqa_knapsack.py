@@ -104,7 +104,7 @@ class GQA_knapsack:
         #################################
         #           REPAIR              #
         #################################
-        #self.repair()
+        self.repair()
         
     
         for i in self.measurements:
