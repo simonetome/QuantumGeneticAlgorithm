@@ -125,7 +125,7 @@ class GQA_qiskit:
         qc.h(qr[:])
         for c in self.rotations:
           for i in range(0,m):
-            qc.ry(self.rotations[c][i],int(c))
+            qc.ry(self.rotations[c][i],int(c*m+i))
       
 
         qc.barrier(qr)

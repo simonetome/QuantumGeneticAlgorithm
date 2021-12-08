@@ -130,7 +130,7 @@ class GQA_function_qiskit:
         qc.barrier(qr)
         qc.measure(qr, cr)
 
-        qc.draw()
+        #qc.draw()
 
         #job_sim = execute(qc, self.backend_sim, shots=1)
         job_sim = execute(qc,fake_manhattan,shots = 2).result()
