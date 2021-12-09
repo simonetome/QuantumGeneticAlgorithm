@@ -100,11 +100,11 @@ def plotBestEval(evals):
 
     plt.show()
 
-def plotKnapsackComparison(best_evaluations,best_evaluations_ideal):
+def plotKnapsackComparison(best_evaluations,best_evaluations_ideal,instance):
     fig, ax = plt.subplots()   
     x = range(len(best_evaluations))
     y = best_evaluations
-
+    title = instance.split("/")[-1]
     SMALL_SIZE = 10
 
     ax.plot(x,y,label="Qiskit: Fake Manhattan")
@@ -114,6 +114,7 @@ def plotKnapsackComparison(best_evaluations,best_evaluations_ideal):
 
     ax.plot(x,y,label="Ideal")
 
+    fig.suptitle(title)
     
     plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
     plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
@@ -122,5 +123,5 @@ def plotKnapsackComparison(best_evaluations,best_evaluations_ideal):
     ax.set_ylabel('Objective', fontsize = 15)
 
     ax.legend()
-
-    plt.show()
+    fig.savefig(title+".jpg")
+    #plt.show()

@@ -104,7 +104,7 @@ class Compact_knapsack_qiskit:
         qc.h(qr[:])
         
         for i in range(0,m):
-            qc.ry(self.rotations[0][i],int(i))
+            qc.ry(self.rotations[0][m-i-1],int(i))
       
 
         qc.barrier(qr)
