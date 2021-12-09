@@ -2,7 +2,7 @@
 </b></h2>
 </n>
 
-This repository contains all the code used for the article and further experiments for constrained optimization (Knapsack).
+This repository contains all the code used for the article.
 
 </n>
 <b>Repository structure:</b>
@@ -40,6 +40,7 @@ This repository contains all the code used for the article and further experimen
 │   │
 │   └── utils
 │   
+├── Knapsack_results_qiskit
 ├── GuideNotebook_function.ipynb
 ├── GuideNotebook_knapsack.ipynb
 ├── classical_vs_quantum_function.py
@@ -48,22 +49,35 @@ This repository contains all the code used for the article and further experimen
 ├── experiments_knapsack_thetas.py
 ├── experiments_mutation_crossover.py
 ├── exploration_exploitation.py
+├── real_implementation.py
+├── qiskit_knapsack.py
 └── hyperparameters_benchmark_function.py
 </pre>
 
 Mapping between experiments reported in the article and used scripts.
 
-<b> Tables 7 and 8: </b>
+<b> Tables 8 and 9: </b>
 <pre>experiments_mutation_crossover.py</pre>
-<b> Figure 8 and table 6: </b>
+<b> Figure 6 and table 7: </b>
 <pre> experiments.py</pre>
-<b> Figures 9 to 11: </b>
+<b> Figures 7 to 9: </b>
 <pre>exploration_exploitation.py</pre>
+<b> Table 10 and Figure 10: </b>
+<pre>qiskit_knapsack.py</pre>
+and other plots are in the folder:
+<pre>├── Knapsack_results_qiskit</pre>
+<b> Figures 11 to 13: </b>
+<pre>real_implementation.py</pre>
 
 For an introdoction on how to use the defined algorithms, please refer to:
 <pre>
 ├── GuideNotebook_function.ipynb
 ├── GuideNotebook_knapsack.ipynb
+</pre>
+
+To run the code on a quantum device:
+<pre>
+├── real_implementation.py
 </pre>
 
 <h3><b>Dependencies</b></h3>
