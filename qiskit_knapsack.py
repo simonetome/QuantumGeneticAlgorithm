@@ -36,6 +36,15 @@ best_ideal_50 = 0
 best_evaluations_ideal = [0]*generations
 
 for instance in tqdm(instances):
+
+    best = 0
+    best_25 = 0
+    best_50 = 0 
+
+    best_ideal = 0
+    best_ideal_25 = 0
+    best_ideal_50 = 0
+
     for s in tqdm(seeds):
         gqa = GQA_qiskit(generations,num_pop,instance,delta,penalty,s,verbose,crossover_probability,mutation_rate,shots)
         gqa.run()
@@ -71,7 +80,6 @@ for instance in tqdm(instances):
         if(gqa.best_evaluations[49] > best_ideal_50):
             best_ideal_50 = gqa.best_evaluations[49]
 
-        print(gqa.best_evaluations)
 
     for i in range(generations):
         best_evaluations_ideal[i] /= runs 
@@ -104,5 +112,73 @@ for instance in tqdm(instances):
 
 
 
+# For instance GQA/knapsack_instances/low-dimensional/f7_l-d_kp_7_50
+# at 25 generations:
+# Best evaluation qiskit found is 107.0
+# Average is: 107.0
+# Best evaluation ideal found is 107.0
+# Average is: 107.0
+# at 50 generations:
+# Best evaluation qiskit found is 107.0
+# Average is: 107.0
+# Best evaluation ideal found is 107.0
+# Average is: 107.0
+# At 100 generations:
+# Best evaluation qiskit found is 107.0
+# Average is: 107.0
+# Best evaluation ideal found is 107.0
+# Average is: 107.0
 
 
+# For instance GQA/knapsack_instances/low-dimensional/f1_l-d_kp_10_269
+# at 25 generations:
+# Best evaluation qiskit found is 295.0
+# Average is: 304.6
+# Best evaluation ideal found is 295.0
+# Average is: 305.1
+# at 50 generations:
+# Best evaluation qiskit found is 295.0
+# Average is: 305.1
+# Best evaluation ideal found is 295.0
+# Average is: 305.3
+# At 100 generations:
+# Best evaluation qiskit found is 295.0
+# Average is: 305.5
+# Best evaluation ideal found is 295.0
+# Average is: 305.7
+
+
+# For instance GQA/knapsack_instances/low-dimensional/f6_l-d_kp_10_60
+# at 25 generations:
+# Best evaluation qiskit found is 52.0
+# Average is: 82.36
+# Best evaluation ideal found is 52.0
+# Average is: 82.51
+# at 50 generations:
+# Best evaluation qiskit found is 52.0
+# Average is: 82.51
+# Best evaluation ideal found is 52.0
+# Average is: 82.53
+# At 100 generations:
+# Best evaluation qiskit found is 52.0
+# Average is: 82.55
+# Best evaluation ideal found is 52.0
+# Average is: 82.57000000000001
+
+
+# For instance GQA/knapsack_instances/low-dimensional/f5_l-d_kp_15_375
+# at 25 generations:
+# Best evaluation qiskit found is 481.069368
+# Average is: 467.0006100999999
+# Best evaluation ideal found is 481.069368
+# Average is: 480.99674970000007
+# at 50 generations:
+# Best evaluation qiskit found is 481.069368
+# Average is: 482.1787316
+# Best evaluation ideal found is 481.069368
+# Average is: 488.2041698
+# At 100 generations:
+# Best evaluation qiskit found is 481.069368
+# Average is: 485.46957509999993
+# Best evaluation ideal found is 481.069368
+# Average is: 489.326368
